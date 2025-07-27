@@ -1,4 +1,4 @@
-const yup = require("yup");
+import * as yup from "yup";
 
 const entrySchema = yup.object({
   title: yup.string().required(),
@@ -10,4 +10,4 @@ const entrySchema = yup.object({
   year: yup.number().required(),
 });
 
-module.exports = entrySchema;
+export default entrySchema;
