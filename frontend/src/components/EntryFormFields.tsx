@@ -25,51 +25,45 @@ const EntryFormFields = ({
   entryId,
 }: EntryFormFieldsProps) => {
   return (
-    <Form className="space-y-4 bg-white p-4 rounded shadow mb-6">
-      {/* Title */}
-      <FormField name="title" label="Title" />
-
-      {/* Type */}
-      <div>
-        <Label htmlFor="type">Type</Label>
-        <Select
-          value={values.type}
-          onValueChange={(value) => setFieldValue("type", value)}
-        >
-          <SelectTrigger id="type">
-            <SelectValue placeholder="Select type" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Movie">Movie</SelectItem>
-            <SelectItem value="TV Show">TV Show</SelectItem>
-          </SelectContent>
-        </Select>
-        <ErrorMessage
-          name="type"
-          component="div"
-          className="text-red-500 text-sm"
-        />
+    <Form className="w-full max-w-2xl mx-auto bg-white p-6 rounded shadow-md space-y-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <FormField name="title" label="Title" />
+        <div>
+          <Label htmlFor="type">Type</Label>
+          <Select
+            value={values.type}
+            onValueChange={(value) => setFieldValue("type", value)}
+          >
+            <SelectTrigger id="type" className="w-full">
+              <SelectValue placeholder="Select type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Movie">Movie</SelectItem>
+              <SelectItem value="TV Show">TV Show</SelectItem>
+            </SelectContent>
+          </Select>
+          <ErrorMessage
+            name="type"
+            component="div"
+            className="text-red-500 text-sm"
+          />
+        </div>
+        <FormField name="director" label="Director" />
+        <FormField name="budget" label="Budget" type="number" />
+        <FormField name="location" label="Location" />
+        <FormField name="duration" label="Duration (min)" type="number" />
+        <FormField name="year" label="Year" type="number" />
       </div>
 
-      {/* Director */}
-      <FormField name="director" label="Director" />
-
-      {/* Budget */}
-      <FormField name="budget" label="Budget" type="number" />
-
-      {/* Location */}
-      <FormField name="location" label="Location" />
-
-      {/* Duration */}
-      <FormField name="duration" label="Duration (min)" type="number" />
-
-      {/* Year */}
-      <FormField name="year" label="Year" type="number" />
-
-      {/* Submit button */}
-      <Button className="cursor-pointer" type="submit" disabled={isSubmitting}>
-        {entryId ? "Update" : "Add"} Entry
-      </Button>
+      <div className="pt-2">
+        <Button
+          className="w-full sm:w-auto cursor-pointer"
+          type="submit"
+          disabled={isSubmitting}
+        >
+          {entryId ? "Update" : "Add"} Entry
+        </Button>
+      </div>
     </Form>
   );
 };
