@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import { createEntry, updateEntry } from "./utils/api";
 import type { Entry } from "./types/entry";
 import { Input } from "./UI/input";
@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "./UI/select";
 import { Button } from "./UI/button";
+import { validationSchema } from "./constant";
 
 interface EntryFormProps {
   initialValues: Omit<Entry, "id" | "createdAt">;
@@ -19,21 +20,7 @@ interface EntryFormProps {
   entryId?: number;
 }
 
-const validationSchema = Yup.object({
-  title: Yup.string().required("Required"),
-  type: Yup.string().oneOf(["Movie", "TV Show"]).required("Required"),
-  director: Yup.string().required("Required"),
-  budget: Yup.number().required("Required").min(0),
-  location: Yup.string().required("Required"),
-  duration: Yup.number().required("Required").min(1),
-  year: Yup.number().required("Required").min(1900),
-});
-
-export default function EntryForm({
-  initialValues,
-  onSuccess,
-  entryId,
-}: EntryFormProps) {
+const EntryForm = ({ initialValues, onSuccess, entryId }: EntryFormProps) => {
   return (
     <Formik
       enableReinitialize
@@ -171,4 +158,6 @@ export default function EntryForm({
       )}
     </Formik>
   );
-}
+};
+
+export default EntryForm;
