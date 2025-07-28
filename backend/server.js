@@ -16,3 +16,5 @@ app.use(express.json());
 app.use("/api/entries", entryRoutes);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// npx nodemon server.js
