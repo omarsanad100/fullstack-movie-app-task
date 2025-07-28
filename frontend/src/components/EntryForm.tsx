@@ -1,5 +1,4 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-// import * as Yup from "yup";
 import { createEntry, updateEntry } from "./utils/api";
 import type { Entry } from "./types/entry";
 import { Input } from "./UI/input";
