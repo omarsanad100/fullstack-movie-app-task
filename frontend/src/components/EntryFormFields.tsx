@@ -25,7 +25,7 @@ const EntryFormFields = ({
   entryId,
 }: EntryFormFieldsProps) => {
   return (
-    <Form className="w-full max-w-2xl mx-auto bg-white p-6 rounded shadow-md space-y-4">
+    <Form className="w-full max-w-2xl mx-auto bg-background p-6 rounded shadow-md space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <FormField name="title" label="Title" />
         <div>
