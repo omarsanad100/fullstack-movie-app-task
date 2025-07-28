@@ -1,8 +1,13 @@
+import Home from "./components/pages/Home";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Welcome to the Fullstack Movie App
-    </h1>
+    <QueryClientProvider client={queryClient}>
+      <Home />
+    </QueryClientProvider>
   );
 }
 
