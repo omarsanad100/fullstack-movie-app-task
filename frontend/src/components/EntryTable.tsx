@@ -1,22 +1,21 @@
 import { useEntries } from "../hooks/useEntries";
 import { useRef, useEffect } from "react";
-import type { Entry } from "./types/entry";
-import { Button } from "./UI/button";
+import EntryTableRow from "./EntryTableRow";
 import {
   Table,
   TableBody,
-  TableCell,
-  TableHead,
   TableHeader,
   TableRow,
+  TableHead as TH,
 } from "./UI/table";
+import type { Entry } from "./types/entry";
 
 interface EntryTableProps {
   onEdit: (entry: Entry) => void;
   onDelete: (entry: Entry) => void;
 }
 
-export default function EntryTable({ onEdit, onDelete }: EntryTableProps) {
+const EntryTable = ({ onEdit, onDelete }: EntryTableProps) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useEntries();
   const loader = useRef<HTMLDivElement | null>(null);
 
@@ -40,100 +39,34 @@ export default function EntryTable({ onEdit, onDelete }: EntryTableProps) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Title</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Director</TableHead>
-              <TableHead>Budget</TableHead>
-              <TableHead>Location</TableHead>
-              <TableHead>Duration</TableHead>
-              <TableHead>Year</TableHead>
-              <TableHead>Created At</TableHead>
-              <TableHead>Actions</TableHead>
+              <TH>Title</TH>
+              <TH>Type</TH>
+              <TH>Director</TH>
+              <TH>Budget</TH>
+              <TH>Location</TH>
+              <TH>Duration</TH>
+              <TH>Year</TH>
+              <TH>Created At</TH>
+              <TH>Actions</TH>
             </TableRow>
           </TableHeader>
-
           <TableBody>
-            {data?.pages
-              .flat()
-              .map(
-                ({
-                  id,
-                  title,
-                  type,
-                  director,
-                  budget,
-                  location,
-                  duration,
-                  year,
-                  createdAt,
-                }: Entry) => (
-                  <TableRow key={id}>
-                    <TableCell>{title}</TableCell>
-                    <TableCell>{type}</TableCell>
-                    <TableCell>{director}</TableCell>
-                    <TableCell>{budget}</TableCell>
-                    <TableCell>{location}</TableCell>
-                    <TableCell>{duration}</TableCell>
-                    <TableCell>{year}</TableCell>
-                    <TableCell>
-                      {new Date(createdAt).toLocaleString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </TableCell>
-                    <TableCell className="flex gap-2 flex-wrap">
-                      <Button
-                        className="cursor-pointer"
-                        variant="secondary"
-                        onClick={() =>
-                          onEdit({
-                            id,
-                            title,
-                            type,
-                            director,
-                            budget,
-                            location,
-                            duration,
-                            year,
-                            createdAt,
-                          })
-                        }
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        className="cursor-pointer"
-                        variant="destructive"
-                        onClick={() =>
-                          onDelete({
-                            id,
-                            title,
-                            type,
-                            director,
-                            budget,
-                            location,
-                            duration,
-                            year,
-                            createdAt,
-                          })
-                        }
-                      >
-                        Delete
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                )
-              )}
+            {data?.pages.flat().map((entry: Entry) => (
+              <EntryTableRow
+                key={entry.id}
+                entry={entry}
+                onEdit={onEdit}
+                onDelete={onDelete}
+              />
+            ))}
           </TableBody>
         </Table>
       </div>
-
       <div ref={loader} className="h-8 flex items-center justify-center">
         {isFetchingNextPage && <span>Loading more...</span>}
       </div>
     </div>
   );
-}
+};
+
+export default EntryTable;
