@@ -35,6 +35,7 @@ export default function EntryTable({ onEdit, onDelete }: EntryTableProps) {
             <th className="px-4 py-2">Location</th>
             <th className="px-4 py-2">Duration</th>
             <th className="px-4 py-2">Year</th>
+            <th className="px-4 py-2">Created At</th>
             <th className="px-4 py-2">Actions</th>
           </tr>
         </thead>
@@ -48,6 +49,15 @@ export default function EntryTable({ onEdit, onDelete }: EntryTableProps) {
               <td className="border px-4 py-2">{entry.location}</td>
               <td className="border px-4 py-2">{entry.duration}</td>
               <td className="border px-4 py-2">{entry.year}</td>
+              <td className="border px-4 py-2">
+                {new Date(entry.createdAt).toLocaleString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </td>
               <td className="border px-4 py-2">
                 <button
                   className="bg-yellow-500 text-white px-2 py-1 rounded mr-2"
